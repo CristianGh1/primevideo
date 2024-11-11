@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5" style="background-color: #1f2a38; border-radius: 5px;">
+        <h2 class="mb-4 text-white">{% if form.instance.id %}Editar Serie{% else %}Agregar Nueva Serie{% endif %}</h2>
+
+    <form method="post" enctype="multipart/form-data" class="my-form">
+
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="{{ form.nombre.id_for_label }}" class="form-label text-white">Nombre de la serie:</label>
+        {{ form.nombre }}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.genero.id_for_label }}" class="form-label text-white">Género:</label>
+        {{ form.genero }}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.clasificacion.id_for_label }}" class="form-label text-white">Clasificación:</label>
+        {{ form.clasificacion }}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.duracion.id_for_label }}" class="form-label text-white">Episodios:</label>
+        {{ form.episodio }}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.resena.id_for_label }}" class="form-label text-white">Reseña:</label>
+        {{ form.resena }}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.duracion.id_for_label }}" class="form-label text-white">Año:</label>
+        {{ form.anio }}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.imagen.id_for_label }}" class="form-label text-white">Imagen de la serie:</label>
+        {{ form.imagen }}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Guardar cambios</button>
+      <br>
+      <a href="{% url 'serie-list' %}" class="btn btn-secondary mt-3">Volver al Listado de Series</a>
+      <br>
+      <br>
+
+      {% if form.errors %}
+        <div class="alert alert-danger mt-3" role="alert">
+          <strong class="text-white">Por favor, corrija los siguientes errores en el formulario:</strong>
+          <ul class="text-white">
+            {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+                <li>{{ field|title }}: {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+    </form>
+   
+  </div>
+  <br><br>
+  <style>
+    /* Estilos del contenedor principal */
+    body {
+        background-color: #0f0f12;
+        color: #e5e5e5;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Título del formulario */
+    h2 {
+        font-weight: bold;
+        color: #ffffff;
+        border-bottom: 2px solid #0071eb;
+        padding-bottom: 10px;
+    }
+
+    /* Estilos de los campos de entrada */
+    .form-control {
+        background-color: #121212;
+        border: 1px solid #333;
+        color: #ffffff;
+    }
+
+    .form-control:focus {
+        background-color: #1c1c1e;
+        border-color: #0071eb;
+        box-shadow: none;
+    }
+
+    /* Estilo de los botones */
+    .btn-primary {
+        background-color: #0071eb;
+        border-color: #0071eb;
+        font-weight: bold;
+    }
+
+    .btn-primary:hover {
+        background-color: #005bb5;
+        border-color: #005bb5;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #5a6268;
+    }
+
+    /* Estilo de las alertas */
+    .alert {
+        background-color: #333;
+        border-color: #ff4c4c;
+        color: #e5e5e5;
+    }
+
+    /* Responsividad */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+  </style>
+{% endblock %}

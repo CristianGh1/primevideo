@@ -1,0 +1,94 @@
+<!-- templates/pelicula_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4" style="color: white;">Detalle de Serie: {{ serie.nombre }}</h2>
+
+    <div class="card" style="width: 600px;">
+        <div class="card-body">
+            {% if serie.imagen %}
+            <img src="{{ serie.imagen.url }}" alt="{{ serie.nombre }}" class="img-fluid mb-4"
+                style="width: 300px;">
+            {% else %}
+            <p class="mb-4">No hay imagen disponible.</p>
+            {% endif %}
+            <p class="card-text"><strong>Género:</strong> {{ serie.get_genero_display }}</p>
+            <p class="card-text"><strong>Clasificación:</strong> {{ serie.get_clasificacion_display }}</p>
+            <p class="card-text"><strong>Episodios:</strong> {{ serie.episodio }}</p>
+            <p class="card-text"><strong>Reseña:</strong> {{ serie.resena }}</p>
+            <p class="card-text"><strong>Año:</strong> {{ serie.anio}}</p>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <a href="{% url 'editar-serie' id=serie.id %}" class="btn btn-warning">Editar</a>
+        <a href="{% url 'eliminar-serie' id=serie.id %}" class="btn btn-danger"
+            onclick="return confirm('¿Estás seguro de que deseas eliminar a {{ serie.nombre }}?')">Eliminar</a>
+       
+        <a href="{% url 'serie-list' %}" class="btn btn-primary">Volver al Listado de Series</a>
+    </div>
+</div>
+
+<style>
+    /* Ajustes del contenedor principal */
+    body {
+        background-color: #0f0f12;
+        color: #e5e5e5;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Título */
+    h2 {
+        font-weight: bold;
+        color: #ffffff;
+        border-bottom: 2px solid #0071eb;
+        padding-bottom: 10px;
+        width: fit-content;
+        text-align: left;
+    }
+
+    /* Estilos de la tarjeta */
+    .card {
+        background-color: #1f2a38;
+        padding: 20px;
+        color: #e5e5e5;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+    /* Estilo del botón */
+    .btn-primary {
+        background-color: #0071eb;
+        border-color: #0071eb;
+    }
+
+    .btn-primary:hover {
+        background-color: #005bb5;
+        border-color: #005bb5;
+    }
+
+    /* Responsividad */
+    @media (max-width: 768px) {
+        .card {
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+</style>
+
+{% endblock %}
+
+
+

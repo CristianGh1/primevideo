@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+  /* Estilos generales */
+  body {
+    background-color: #151515;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+
+  h2 {
+    color: #ffffff;
+    font-weight: bold;
+  }
+
+  /* Contenedor principal */
+  .container {
+    margin-top: 20px;
+  }
+
+  /* Estilo de tarjeta */
+  .card {
+    background-color: #1f2a38;
+    border: none;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .card img {
+    max-width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+
+  /* Cuerpo de la tarjeta */
+  .card-body {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 8px;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    color: #b8c2cc;
+    margin: 0;
+  }
+
+  /* Botón con margen superior */
+  .btn-info {
+    background-color: #0071eb;
+    color: #ffffff;
+    border: none;
+    font-weight: bold;
+    margin-top: 15px; /* Margen superior para posicionar el botón más abajo */
+  }
+
+  .btn-info:hover {
+    background-color: #005bb5;
+  }
+
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .container h2 {
+      text-align: center;
+    }
+
+    .card {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .card img {
+      height: 300px;
+    }
+  }
+</style>
+
+<div class="container mt-5"><h2 style="color: white;">Series</h2></div>
+
+<div class="row mx-auto">
+  {% for serie in series %}
+  <div class="col-md-4 mb-4">
+    <div class="card mx-auto">
+      {% if serie.imagen %}
+      <img src="{{ serie.imagen.url }}" class="card-img-top" alt="{{ serie.nombre }}" style="max-height: 100%;">
+      {% else %}
+      <img src="{% static 'images/not-found.png' %}" class="card-img-top" alt="Sin imagen" style="max-height: 100%;">
+      {% endif %}
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ serie.nombre}}</h5>
+        <p class="card-text"><strong>Género:</strong> {{ serie.get_genero_display }}</p>
+        <p class="card-text"><strong>Año:</strong> {{ serie.anio}}</p>
+        <p class="card-text"><strong>Clasificación:</strong> {{ serie.get_clasificacion_display }}</p>
+
+        <div class="mx-auto ta-c10">
+          <a href="{% url 'serie-detail' id=serie.id %}" class="btn btn-info w-100">Ver</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+{% endblock %}
+
+
